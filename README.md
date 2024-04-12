@@ -6,9 +6,10 @@
 
 # Events
 - AccountActivity
-    - AccountActivity will handle storing and logging account activity in both a database table and a log file stored in `storage/logs/account_activity.log`. The purpose of the text file redundancy is to rebuild the activity table in the event of data loss or migration. While this may not be perfect in the sense of data retained in the log, for the purpose of this project it will only store pertinent information for the activity and balances i.e. it does not retain all user & card information like a live system might.
+    - AccountActivity will handle storing and logging account activity in both a database table and a log file stored in `storage/logs/account_activity.log`. 
+        - The purpose of the text file redundancy is to rebuild the activity table in the event of data loss or migration. While this may not be perfect in the sense of data retained in the log, for the purpose of this project it will only store pertinent information for the activity and balances i.e. it does not retain all user & card information like a live system might.
 
-# Account Endpoints
+# API Endpoints
 - Charge - `/account/charge`
 - Debit - `/account/debit`
 - Withdraw (abstraction of charge) - `/account/withdraw`
