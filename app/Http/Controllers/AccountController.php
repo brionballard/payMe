@@ -63,8 +63,6 @@ class AccountController extends Controller
      */
     public function charge(ChangeBalanceRequest $request): JsonResponse
     {
-        $timestamp = \Carbon\Carbon::now();
-
         $data = $this->processRequestData($request);
         $shouldSubtract = true; // flag to handle signed amount values
         
@@ -94,7 +92,6 @@ class AccountController extends Controller
      */
     public function debit(ChangeBalanceRequest $request)
     {
-        $timestamp = \Carbon\Carbon::now();
         $data = $this->processRequestData($request);
         
         if ($data->requestAmount < 0) {
@@ -120,7 +117,6 @@ class AccountController extends Controller
      */
     public function withdraw(ChangeBalanceRequest $request)
     {
-        $timestamp = \Carbon\Carbon::now();
         $data = $this->processRequestData($request);
 
         if ($data->balance->amount <= 0 || $data->requestAmount > $data->balance->amount) {
@@ -140,7 +136,7 @@ class AccountController extends Controller
 
         // Explicitly set available amount from withdrawals after activity is stored
         // ** primarily for client side consumption
-        $activityData['available'] = $data->requestAmount;
+        $activityData['available'] = floatval($data->requestAmount);
         
         return response()->json($activityData, 200);
     }
@@ -207,9 +203,9 @@ class AccountController extends Controller
         return [
             'user_id' => $data->user->id,
             'balance_at_time_of_activity' => $balance->amount,
-            'amount' => $data->requestAmount,
+            'amount' => floatval($data->requestAmount),
             'card_id' => $data->card_id,
-            'timestamp' => $timestamp,
+            'timestamp' => \Carbon\Carbon::now(),
             'api_key' => $data->apiKey,
         ];
     }

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Exceptions\InvalidApiKey;
 
-class HasApiKey
+use App\Models\ApiKey;
+
+class ValidApiKey
 {
     /**
      * Handle an incoming request.

@@ -12,7 +12,6 @@ use Exception;
 
 class AccountTest extends TestCase
 {
-    protected $cardCreated = false;
     /**
      * Test charging a balance
      */
@@ -27,11 +26,6 @@ class AccountTest extends TestCase
         $currentBalance = $user->balance;
         $expected_update = $chargeAmount + $currentBalance->amount;
 
-        if (!$card) {
-            $card = $this->createCardForTest($user);
-            $this->cardCreated = true;
-        }
-
         $response = $this->withHeaders([
             'X-API-KEY' => $apiKey->token,
         ])->post('/api/accounts/charge', [
@@ -40,12 +34,11 @@ class AccountTest extends TestCase
         ]);
 
         $response->assertStatus(200)->assertJson([
-            'amount' => $expected_update,
+            'balance_at_time_of_activity' => floatval($expected_update),
+            'amount' => floatval($chargeAmount)
          ]);
 
          Event::assertDispatched(AccountActivity::class);
-
-         $this->deleteTestCard($card);
     }
 
      /**
@@ -62,11 +55,6 @@ class AccountTest extends TestCase
         $currentBalance = $user->balance;
         $expected_update = $debitAmount + $currentBalance->amount;
 
-        if (!$card) {
-            $card = $this->createCardForTest($user);
-            $this->cardCreated = true;
-        }
-
         $response = $this->withHeaders([
             'X-API-KEY' => $apiKey->token,
         ])->post('/api/accounts/debit', [
@@ -75,12 +63,11 @@ class AccountTest extends TestCase
         ]);
 
         $response->assertStatus(200)->assertJson([
-            'amount' => $expected_update,
+            'balance_at_time_of_activity' => floatval($expected_update),
+            'amount' => floatval($debitAmount)
          ]);
          
          Event::assertDispatched(AccountActivity::class);
-
-         $this->deleteTestCard($card);
     }
 
     /**
@@ -97,19 +84,12 @@ class AccountTest extends TestCase
         
         $this->expectException(\App\Exceptions\InvalidAmountValue::class);
 
-        if (!$card) {
-            $card = $this->createCardForTest($user);
-            $this->cardCreated = true;
-        }
-
         $response = $this->withoutExceptionHandling()->withHeaders([
             'X-API-KEY' => $apiKey->token,
         ])->post('/api/accounts/debit', [
             'amount' => $debitAmount,
             'card_id' => $card->id
         ]);
-      
-        $this->deleteTestCard($card);
     }
 
     /**
@@ -123,23 +103,5 @@ class AccountTest extends TestCase
         $max = count($keys) - 1;
 
         return $keys[random_int($min, $max)];
-    }
-
-    private function createCardForTest($user) {
-       return \App\Models\Card::factory()->create([
-            'user_id' => $user->id,
-            'number' => fake()->creditCardNumber(),
-            'name' => $user->name,
-            'exp' => fake()->creditCardExpirationDateString(),
-            'cvc' => '000'
-        ]);
-    }
-
-    private function deleteTestCard ($card)
-    {
-        if ($this->cardCreated === true) {
-            $card->delete();
-            $this->cardCreated = false;
-        }
     }
 }

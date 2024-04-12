@@ -35,11 +35,8 @@ If your env `QUEUE_CONNECTION` is set to `sync`, the activity log will be logged
 # Making Requests
 All request should be made with a `X-API-KEY`. This is just to avoid true authentication for the purpose of this example. Validation of API keys can be found in `app/Http/Middleware/HasApiKey.php`.
 
-If you need to retrieve an API token or card ID, you may make a GET request to the following endpoints:
-`/api/accounts/cards/{user_id}`
-`/api/accounts/keys/{user_id}`
-
-This information will be required to make request to the `charge`, `debit`, `activity`, and `withdraw` endpoints.
+If you need to retrieve an API token or card ID, you may make a GET request to the following endpoint:
+`/api/deps`. You will need the provided information to make requests to the `/api/account/` endpoint.
 
 ## Dev Setup Commands
 The following commands are all of the commands it will take to scaffold this project quickly from scratch.

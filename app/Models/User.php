@@ -52,7 +52,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Card::class);
     }
-
+    
     public function balance()
     {
         return $this->hasOne(Balance::class);
