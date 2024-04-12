@@ -18,6 +18,9 @@
 
 - Get test data - `/api/deps`
 
+# Step 0:
+Update `env.example` to `.env` and add your local DB credentials.
+
 # Step 1:
 Migrate tables
 For database driven queues
