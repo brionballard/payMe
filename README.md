@@ -33,7 +33,7 @@ If your env `QUEUE_CONNECTION` is set to `sync`, the activity log will be logged
 
 
 # Making Requests
-All request should be made with a `X-API-KEY`. This is just to avoid true authentication for the purpose of this example. Validation of API keys can be found in `app/Http/Middleware/HasApiKey.php`.
+All request should be made with a `X-API-KEY`. This is just to avoid true authentication for the purpose of this example. Validation of API keys can be found in `app/Http/Middleware/ValidApiKey.php`.
 
 If you need to retrieve an API token or card ID, you may make a GET request to the following endpoint:
 `/api/deps`. You will need the provided information to make requests to the `/api/account/` endpoint.
@@ -41,9 +41,9 @@ If you need to retrieve an API token or card ID, you may make a GET request to t
 ## Dev Setup Commands
 The following commands are all of the commands it will take to scaffold this project quickly from scratch.
 
-`php artisan make:model Card -mf`
+`php artisan make:model Card -m`
 `php artisan make:model Balance -m`
-`php artisan make:model ApiKey -mf`
+`php artisan make:model ApiKey -m`
 `php artisan make:model ActivityLog -m`
 `php artisan make:event AccountActivity`
 `php artisan make:controller AccountController`
@@ -53,10 +53,10 @@ The following commands are all of the commands it will take to scaffold this pro
 `php artisan make:exception InvalidApiKey`
 `php artisan make:exception InvalidAmountValue`
 `php artisan make:exception NotSufficientFunds`
-`php artisan make:middleware HasApiKey`
+`php artisan make:middleware ValidApiKey`
 
 ### Single command:
-`php artisan make:model Card -mf && php artisan make:model Balance -m && php artisan make:model ApiKey -mf && php artisan make:model ActivityLog -m && php artisan make:event AccountActivity && php artisan make:controller AccountController && php artisan make:event AccountActivity && php artisan make:listener AccountActivityListener --event=AccountActivity && php artisan make:test AccountTest && php artisan make:exception InvalidApiKey && php artisan make:exception InvalidAmountValue && php artisan make:exception NotSufficientFunds && php artisan make:middleware HasApiKey`
+`php artisan make:model Card -m && php artisan make:model Balance -m && php artisan make:model ApiKey -m && php artisan make:model ActivityLog -m && php artisan make:event AccountActivity && php artisan make:controller AccountController && php artisan make:event AccountActivity && php artisan make:listener AccountActivityListener --event=AccountActivity && php artisan make:test AccountTest && php artisan make:exception InvalidApiKey && php artisan make:exception InvalidAmountValue && php artisan make:exception NotSufficientFunds && php artisan make:middleware ValidApiKey`
 
 #### Next step = code models & events
 
