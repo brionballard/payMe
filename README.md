@@ -43,6 +43,7 @@ If you need to retrieve an API token or card ID, you may make a GET request to t
 
 ### Single command:
 The following commands are all of the commands it will take to scaffold this project quickly from scratch.
+
 `php artisan make:model Card -m && php artisan make:model Balance -m && php artisan make:model ApiKey -m && php artisan make:model ActivityLog -m && php artisan make:event AccountActivity && php artisan make:controller AccountController && php artisan make:event AccountActivity && php artisan make:listener AccountActivityListener --event=AccountActivity && php artisan make:test AccountTest && php artisan make:exception InvalidApiKey && php artisan make:exception InvalidAmountValue && php artisan make:exception NotSufficientFunds && php artisan make:middleware ValidApiKey`
 
 #### Next step = code models & events
