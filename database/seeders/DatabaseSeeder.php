@@ -24,14 +24,6 @@ class DatabaseSeeder extends Seeder
                 'amount' => fake()->randomFloat(2, 1, 3000)
             ]);
 
-            \App\Models\Card::create([
-                'user_id' => $user->id,
-                'number' => fake()->creditCardNumber(),
-                'name' => $user->name,
-                'exp' => fake()->creditCardExpirationDateString(),
-                'cvc' => '000'
-            ]);
-
             \App\Models\ApiKey::create([
                 'user_id' => $user->id,
                 'token' => Str::random(16)

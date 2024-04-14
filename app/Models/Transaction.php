@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 
-class ActivityLog extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'balance_at_time_of_activity',
+        'balance_after_activity',
         'amount',
         'timestamp',
         'api_key',
@@ -34,7 +34,7 @@ class ActivityLog extends Model
     {
         $data = (object) [
             'user_id' => $this->user_id,
-            'balance_at_time_of_activity' => $this->balance_at_time_of_activity,
+            'balance_after_activity' => $this->balance_after_activity,
             'amount' => $this->amount,
             'timestamp' => $this->timestamp,
             'api_key' => $this->api_key,

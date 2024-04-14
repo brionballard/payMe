@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeBalanceRequest extends FormRequest
+class TransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class ChangeBalanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'required|numeric',
-            'card_id' => 'required|numeric'
+            'amount' => 'required|numeric'
         ];
     }
 }

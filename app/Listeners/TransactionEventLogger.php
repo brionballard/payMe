@@ -2,19 +2,20 @@
 
 namespace App\Listeners;
 
-use App\Events\AccountActivity;
+use App\Events\TransactionCreated;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class AccountActivityListener implements ShouldQueue, ShouldHandleEventsAfterCommit
+
+class TransactionEventLogger implements ShouldQueue, ShouldHandleEventsAfterCommit
 {
     use InteractsWithQueue;
     
     /**
      * Handle the event.
      */
-    public function handle(AccountActivity $event): void
+    public function handle(TransactionCreated $event): void
     {        
         file_exists($event->path) ?
             // Set FILE_APPEND so the file is not overwritten

@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AccountController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Middleware\ValidApiKey;
 
 /*
@@ -17,28 +19,25 @@ use App\Http\Middleware\ValidApiKey;
 */
 
 // Strictly for getting information in testing
+// * This route should only be used to retrieve data to setup request in tools
+// * such as Postman. This is not a "real" route.
 if (env('APP_ENV') !== 'production') {
-    Route::get('/deps', function () {
+    Route::get('/issue-key', function () {
         $user = \App\Models\User::inRandomOrder()->first();
-        $card = $user->cards->first();
-        $key = $user->apiKeys->first();
-
-        return response()->json((object) [
-            'user_id' => $user->id,
-            'card_id' => $card->id,
-            'apiKey' => $key->token
-        ]);
+        return response()->json($user->apiKeys->first()->token);
     });
 }
 
-Route::middleware(ValidApiKey::class)->prefix('accounts')->controller(AccountController::class)->group(function () {
-    Route::post('/charge', 'charge');
-    Route::post('/debit', 'debit');
-    Route::post('/withdraw', 'withdraw');
 
-    // In the real world this would be protected via middleware and/or roles
-    // These API routes are mainly for retrieving information for testing in tools such as PostMan
-    Route::get('/cards/{user}', 'cards');
-    Route::get('/keys/{user}', 'keys');
-    Route::get('/', 'activity');
+Route::middleware(ValidApiKey::class)->group(function () {
+    Route::prefix('transactions')->controller(TransactionController::class)->group(function () {
+        Route::post('/{action}', 'transact');
+    });
+
+    Route::prefix('users')->controller(UserController::class)->group(function () {
+        Route::get('/transactions', 'transactions');
+        Route::get('/balance', 'balance');
+        Route::get('/keys', 'keys');
+    });
 });
+

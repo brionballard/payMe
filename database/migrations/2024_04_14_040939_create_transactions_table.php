@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activity_logs', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->float('balance_at_time_of_activity');
+            $table->float('balance_after_activity');
             $table->float('amount');
             $table->string('api_key');
             $table->timestamp('timestamp');
-            $table->unsignedBigInteger('card_id');
             $table->string('action');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activity_logs');
+        Schema::dropIfExists('transactions');
     }
 };

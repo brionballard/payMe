@@ -8,10 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-use App\Models\Card;
 use App\Models\Balanace;
 use App\Models\ApiKey;
-use App\Models\ActivityLog;
+use App\Models\Transaction;
 
 class User extends Authenticatable
 {
@@ -47,11 +46,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function cards()
-    {
-        return $this->hasMany(Card::class);
-    }
     
     public function balance()
     {
@@ -63,8 +57,8 @@ class User extends Authenticatable
         return $this->hasMany(ApiKey::class);
     }
 
-    public function activity()
+    public function transactions()
     {
-        return $this->hasMany(ActivityLog::class);
+        return $this->hasMany(Transaction::class);
     }
 }
