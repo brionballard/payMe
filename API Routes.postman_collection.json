@@ -8,103 +8,13 @@
 	},
 	"item": [
 		{
-			"name": "Charge Account",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-API-KEY",
-						"value": "X03wlvkgBDTdRmAc",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "card_id",
-							"value": "2",
-							"type": "text"
-						},
-						{
-							"key": "amount",
-							"value": "11",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts/charge",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"accounts",
-						"charge"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Debit Account",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-API-KEY",
-						"value": "X03wlvkgBDTdRmAc",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "card_id",
-							"value": "2",
-							"type": "text"
-						},
-						{
-							"key": "amount",
-							"value": "20",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts/debit",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"accounts",
-						"debit"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Withdraw",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "X-API-KEY",
-						"value": "X03wlvkgBDTdRmAc",
+						"value": "RlwnbOEQ0Z31JLEv",
 						"type": "text"
 					}
 				],
@@ -112,19 +22,14 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "card_id",
-							"value": "2",
-							"type": "text"
-						},
-						{
 							"key": "amount",
-							"value": "20",
+							"value": "-20",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts/withdraw",
+					"raw": "http://127.0.0.1:8000/api/transactions/withdraw",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -135,7 +40,7 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"accounts",
+						"transactions",
 						"withdraw"
 					]
 				}
@@ -143,27 +48,19 @@
 			"response": []
 		},
 		{
-			"name": "Get Activity",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Charge",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [
 					{
 						"key": "X-API-KEY",
-						"value": "PzBm8vmHx4zqMaqp",
+						"value": "RlwnbOEQ0Z31JLEv",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
-						{
-							"key": "card_id",
-							"value": "2",
-							"type": "text"
-						},
 						{
 							"key": "amount",
 							"value": "20",
@@ -172,7 +69,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts",
+					"raw": "http://127.0.0.1:8000/api/transactions/charge",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -183,14 +80,55 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"accounts"
+						"transactions",
+						"charge"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get User Cards",
+			"name": "Debit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "YPyAXO8XyJzj0oSt",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "amount",
+							"value": "2000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/transactions/debit",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"transactions",
+						"debit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Transactions",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -199,7 +137,7 @@
 				"header": [
 					{
 						"key": "X-API-KEY",
-						"value": "PzBm8vmHx4zqMaqp",
+						"value": "gTVUxoVjGZr4hHTv",
 						"type": "text"
 					}
 				],
@@ -208,7 +146,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts/cards/2",
+					"raw": "http://127.0.0.1:8000/api/users/transactions",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -219,9 +157,45 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"accounts",
-						"cards",
-						"2"
+						"users",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Balance",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "YPyAXO8XyJzj0oSt",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/users/balance",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"balance"
 					]
 				}
 			},
@@ -237,7 +211,7 @@
 				"header": [
 					{
 						"key": "X-API-KEY",
-						"value": "ztyacsuywubhA",
+						"value": "gTVUxoVjGZr4hHTv",
 						"type": "text"
 					}
 				],
@@ -246,7 +220,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/accounts/keys/2",
+					"raw": "http://127.0.0.1:8000/api/users/keys",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -257,16 +231,15 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"accounts",
-						"keys",
-						"2"
+						"users",
+						"keys"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Deps",
+			"name": "Issue API Key",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -284,7 +257,7 @@
 					"urlencoded": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/deps",
+					"raw": "http://127.0.0.1:8000/api/issue-key",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -295,7 +268,7 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"deps"
+						"issue-key"
 					]
 				}
 			},

@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
             \App\Models\ApiKey::create([
                 'user_id' => $user->id,
-                'token' => Str::random(16)
+                'token' => Str::random(32)
             ]);
         }
         
