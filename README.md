@@ -1,38 +1,16 @@
-# Models
- - Balance
- - ApiKey
- - Transaction
+# Project Dependencies
+`php 8.1`
+`Laravel 10.10`
 
-# Events
-- TransactionCreated
-    - TransactionCreated will handle storing and logging transactions in both a database table and a log file stored in `storage/logs/transactions.log`. 
-        - The purpose of the text file redundancy is to rebuild the activity table in the event of data loss or migration. While this may not be perfect in the sense of data retained in the log, for the purpose of this project it will only store pertinent information for the activity and balances i.e. it does not retain all user & card information like a live system might.
-
-# API Endpoints
-- Transactions `/api/transactions/{action}`
-    - debit
-    - charge
-    - withdraw
-    - deposit
-    - refund
-
-- Get Transactions - `/api/users/transactions`
-- Get Balance - `/api/users/balance`
-- Get ApiKeys - `/api/account/keys`
-
-- Issue API Key - `/api/issue-key`
-    - Returns a random user API key assuming your database has been migrated and seeded
-
+This guide will be based on using database driven queues, if you would like to not use that method change the `QUEUE_CONNECTION` env variable to `sync`. Once that is done, you may ignore any artisan command regarding `queue:`
 # Step 0:
 Update `env.example` to `.env` and add your local DB credentials.
 
 # Step 1:
 Migrate tables
 For database driven queues
-`php artisan migrate:fresh --seed && php artisan queue:table`
-
-Or without db queues
 `php artisan migrate:fresh --seed`
+`php artisan queue:table`
 
 This will migrate the schema and generate all of the necessary data dependencies to run the application.
 
@@ -63,6 +41,32 @@ If your env `QUEUE_CONNECTION` is set to `sync`, the activity log will be logged
 
 1) Have a jobs table available in your DB, if not, you can run `php artisan queue:table` 
 2) The queue is being listened to while the server is running. To this you can run `php artisan queue:listen`
+
+# API Endpoints
+- Transactions `/api/transactions/{action}`
+    - debit
+    - charge
+    - withdraw
+    - deposit
+    - refund
+
+- Get Transactions - `/api/users/transactions`
+- Get Balance - `/api/users/balance`
+- Get ApiKeys - `/api/account/keys`
+
+- Issue API Key - `/api/issue-key`
+    - Returns a random user API key assuming your database has been migrated and seeded
+
+# Models
+ - Balance
+ - ApiKey
+ - Transaction
+
+# Events
+- TransactionCreated
+    - TransactionCreated will handle storing and logging transactions in both a database table and a log file stored in `storage/logs/transactions.log`. 
+        - The purpose of the text file redundancy is to demonstrate the possibility of using Event Sourcing to rebuild the transaction table in the event of data loss or migration.
+
 
 
 
